@@ -9,9 +9,23 @@ package com.vinsol.expensetracker.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Entry extends Favorite {
-	
-	
+public class Entry implements Parcelable {
+
+    public String id = null;
+	public String amount;
+	public String description;
+    public String transactionType;
+	public String type;
+	public String location;
+	public String myHash;
+	public String idFromServer;
+	public Boolean deleted;
+	public String updatedAt;
+	public String syncBit;
+	public Boolean fileUploaded;
+	public Boolean fileToDownload;
+	public String fileUpdatedAt;
+
 	public Long timeInMillis;
 	public String favorite = null;
 	

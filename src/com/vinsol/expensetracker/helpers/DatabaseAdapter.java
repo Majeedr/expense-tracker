@@ -105,17 +105,17 @@ public class DatabaseAdapter {
 	protected void dropEntryTable() {
 		db.execSQL("drop table " + ENTRY_TABLE);
 	}
-	
+
 	protected void dropFavoriteTable() {
 		db.execSQL("drop table " + FAVORITE_TABLE);
 	}
-	
-	public long insertToFavoriteTable(Favorite favorite) {
+
+	public long insertToFavoriteTable(Entry favorite) {
 		ContentValues contentValues = getInsertContentValues(favorite);
 		long id = db.insert(FAVORITE_TABLE, null, contentValues);
 		return id;
 	}
-	
+
 	public Long insertToEntryTable(Entry entry) {
 		ContentValues contentValues = getInsertContentValues(entry);
 		if(entry.timeInMillis != null)
@@ -125,8 +125,8 @@ public class DatabaseAdapter {
 		long id = db.insert(ENTRY_TABLE, null, contentValues);
 		return id;
 	}
-	
-	private ContentValues getInsertContentValues(Favorite object) {
+
+	private ContentValues getInsertContentValues(Entry object) {
 		ContentValues contentValues = new ContentValues();
 		if(Strings.notEmpty(object.description))
 			contentValues.put(KEY_TAG, object.description);
@@ -152,8 +152,8 @@ public class DatabaseAdapter {
 			contentValues.put(KEY_SYNC_BIT, object.syncBit);
 		if(Strings.notEmpty(object.updatedAt))
 			contentValues.put(KEY_UPDATED_AT, object.updatedAt);
-			
-		contentValues.put(KEY_FILE_UPLOADED, object.fileUploaded); // a boolean	
+
+		contentValues.put(KEY_FILE_UPLOADED, object.fileUploaded); // a boolean
 		contentValues.put(KEY_FILE_TO_DOWNLOAD, object.fileToDownload); // a boolean
 		if(Strings.notEmpty(object.fileUpdatedAt))
 			contentValues.put(KEY_FILE_UPDATED_AT, object.fileUpdatedAt);
@@ -455,8 +455,8 @@ public class DatabaseAdapter {
 		}
 		return false;
 	}
-	
-	private ContentValues getEditContentValues(Favorite object) {
+
+	private ContentValues getEditContentValues(Entry object) {
 		ContentValues contentValues = new ContentValues();
 		if (Strings.notEmpty(object.description))
 			contentValues.put(KEY_TAG, object.description);

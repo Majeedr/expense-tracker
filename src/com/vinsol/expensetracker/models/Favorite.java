@@ -9,22 +9,8 @@ package com.vinsol.expensetracker.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Favorite implements Parcelable {
+public class Favorite extends Entry {
 
-	public String id = null;
-	public String amount;
-	public String description;
-	public String type;
-	public String location;
-	public String myHash;
-	public String idFromServer;
-	public Boolean deleted;
-	public String updatedAt;  
-	public String syncBit;
-	public Boolean fileUploaded;
-	public Boolean fileToDownload;
-	public String fileUpdatedAt;
-	
 	public static final Parcelable.Creator<Favorite> CREATOR = new Parcelable.Creator<Favorite>() {
     	public Favorite createFromParcel(Parcel in) {
     		return new Favorite(in);
