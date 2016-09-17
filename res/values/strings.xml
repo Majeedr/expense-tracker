@@ -112,7 +112,13 @@
     <string name="tab_thismonth">This Month</string>
     <string name="tab_thisyear">This Year</string>
     <string name="tab_all">All</string>
-    
+
+    <!-- Button Label -->
+    <string name="expense_short_sign">–</string>
+    <string name="income_short_sign">+</string>
+
+
+
     <!-- title for the dialog showing the error of camera hardware -->
     <string name="camera_error_title">Camera error</string>
 

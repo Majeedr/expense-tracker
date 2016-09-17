@@ -65,6 +65,7 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
 	protected TextView editHeaderTitle;
 	protected TextView dateBarDateview;
 	protected String dateViewString;
+    protected Button inOutToggle;
 	protected Button editDelete;
 	protected Button editSaveEntry;
 	protected Entry entry;
@@ -91,6 +92,7 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
 		entry = new Entry();
 		fileHelper = new FileHelper();
 		editAmount = (EditText) findViewById(R.id.edit_amount);
+        inOutToggle = (Button) findViewById(R.id.expense_income_toggle);
 		editHeaderTitle = (TextView) findViewById(R.id.header_title);
 		editTag = (EditText) findViewById(R.id.edit_tag);
 		dateBarDateview = (TextView) findViewById(R.id.edit_date_bar_dateview);
@@ -99,6 +101,7 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
 		mDatabaseAdapter = new DatabaseAdapter(this);
 		editSaveEntry.setOnClickListener(this);
 		editDelete.setOnClickListener(this);
+        inOutToggle.setOnClickListener(this);
 		editAmount.setSelection(editAmount.getText().length());
 		editAmount.setOnEditorActionListener(setEnterButtonToNext);
 		editAmount.setOnFocusChangeListener(focusChangeListener);
@@ -220,6 +223,7 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
 		list.id = entry.id;
 		if(mEditList != null)
 			isChanged = checkEntryModified();
+        entry.transactionType = inOutToggle.getText().toString();
 		entry.amount = editAmount.getText().toString();
 		entry.description = editTag.getText().toString();
 		if (!entry.amount.equals(".") && !entry.amount.equals("")) {
@@ -555,6 +559,14 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
 				}
 			}
 			break;
+        case R.id.expense_income_toggle:
+            String outSign = getResources().getString(R.string.expense_short_sign);
+            if (inOutToggle.getText() == outSign) {
+                inOutToggle.setText(R.string.income_short_sign);
+            } else {
+                inOutToggle.setText(R.string.expense_short_sign);
+            }
+            break;
 		default:
 			break;
 		}
