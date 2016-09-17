@@ -6,27 +6,27 @@
 */     
  -->
 <RelativeLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_height="fill_parent"
-	android:layout_width="fill_parent"
-	android:background="@drawable/listing_row_states">
-	
-	<!-- ListView -->
-	<ListView 
-		android:id="@+id/expense_listing_listview"
-	   	android:layout_height="fill_parent"
-	   	android:layout_width="fill_parent"
-	   	android:cacheColorHint="@android:color/transparent" 
-	   	android:divider="@drawable/list_divider"
-	   	android:footerDividersEnabled="false"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:background="@drawable/listing_row_states">
+    
+    <!-- ListView -->
+    <ListView 
+        android:id="@+id/expense_listing_listview"
+           android:layout_height="fill_parent"
+           android:layout_width="fill_parent"
+           android:cacheColorHint="@android:color/transparent" 
+           android:divider="@drawable/list_divider"
+           android:footerDividersEnabled="false"/>
 
-	<!-- Body if no list item -->
+    <!-- Body if no list item -->
     <RelativeLayout
         android:id="@+id/expense_listing_listview_no_item"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-		android:gravity="center"
-		android:visibility="gone" >
+        android:gravity="center"
+        android:visibility="gone" >
          
         <TextView
             android:id="@+id/expense_listing_listview_no_item_textview"
@@ -39,12 +39,12 @@
             android:layout_marginBottom="5dp" />
         
         <Button
-    	    android:id="@+id/expense_listing_listview_no_item_button"
-        	android:layout_height="wrap_content"
-        	android:layout_width="wrap_content"
-        	android:background="@drawable/add_expenses_with_text_states"
-       		android:layout_below="@id/expense_listing_listview_no_item_textview"
-       		android:layout_centerHorizontal="true" />
+            android:id="@+id/expense_listing_listview_no_item_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@drawable/add_expenses_with_text_states"
+               android:layout_below="@id/expense_listing_listview_no_item_textview"
+               android:layout_centerHorizontal="true" />
         
-	</RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

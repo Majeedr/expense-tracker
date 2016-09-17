@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/generate_report_header_states"
         android:layout_toLeftOf="@id/home_listview" />
-	
+    
     <TextView 
         android:id="@+id/home_unfinished_entry_count"
         android:layout_height="wrap_content"

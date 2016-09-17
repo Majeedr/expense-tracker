@@ -154,10 +154,10 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
     public static boolean mMediaServerDied = false;
     
     @Override
-	protected void onStart() {
-		super.onStart();
-		FlurryAgent.onStartSession(this, getString(R.string.flurry_key));
-	}
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, getString(R.string.flurry_key));
+    }
 
     private final Handler mHandler = new MainHandler();
 
@@ -267,7 +267,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
             public void onOrientationChanged(int orientation) {
                 // We keep the last known orientation. So if the user
                 // first orient the camera then point the camera to
-            	if (orientation == ORIENTATION_UNKNOWN) return;
+                if (orientation == ORIENTATION_UNKNOWN) return;
                 mLastOrientation = roundOrientation(orientation);
                 int orientationCompensation = mLastOrientation + getDisplayRotation();
                 if (mOrientationCompensation != orientationCompensation) {
@@ -316,7 +316,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
     }
 
     private class PostViewPictureCallback implements PictureCallback {
-    	public void onPictureTaken(byte [] data, android.hardware.Camera camera) {
+        public void onPictureTaken(byte [] data, android.hardware.Camera camera) {
             mPostViewPictureCallbackTime = System.currentTimeMillis();
         }
     }
@@ -436,9 +436,9 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
             mPostViewPictureCallbackTime = 0;
             mStatus = SNAPSHOT_IN_PROGRESS;
             mImageCapture.initiate();
-        	findViewById(R.id.camera_progress_bar).setVisibility(View.VISIBLE);
-        	findViewById(R.id.shutter_button).setVisibility(View.GONE);
-        	findViewById(R.id.flash_button).setVisibility(View.GONE);
+            findViewById(R.id.camera_progress_bar).setVisibility(View.VISIBLE);
+            findViewById(R.id.shutter_button).setVisibility(View.GONE);
+            findViewById(R.id.flash_button).setVisibility(View.GONE);
         }
 
         private void clearLastData() {
@@ -496,45 +496,45 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
                 return;
             }
         } catch (InterruptedException ex) {
-        	ex.printStackTrace();
+            ex.printStackTrace();
         }
         ((CameraButton) findViewById(R.id.btn_cancel)).setOnClickListener(this);
         ((CameraButton) findViewById(R.id.btn_done)).setOnClickListener(this);
         ((CameraButton) findViewById(R.id.btn_retake)).setOnClickListener(this);
         ((CameraFlashButton) findViewById(R.id.flash_button)).setButtonCallback(flashCB);
     }
-	
-	private String getFlashParameter(int resId) {
-		switch (resId) {
-		case 0:
-			return Parameters.FLASH_MODE_AUTO;
-		case 1:
-			return Parameters.FLASH_MODE_OFF;
-		case 2:
-			return Parameters.FLASH_MODE_ON;
-		default:
-			return Parameters.FLASH_MODE_AUTO;
-		}
-	}
+    
+    private String getFlashParameter(int resId) {
+        switch (resId) {
+        case 0:
+            return Parameters.FLASH_MODE_AUTO;
+        case 1:
+            return Parameters.FLASH_MODE_OFF;
+        case 2:
+            return Parameters.FLASH_MODE_ON;
+        default:
+            return Parameters.FLASH_MODE_AUTO;
+        }
+    }
     
     private void setOrientationIndicator(int degree) {
-    	((CameraFlashButton) findViewById(R.id.flash_button)).setDegree(degree);
-    	((CameraButton) findViewById(R.id.btn_cancel)).setDegree(degree);
-    	((CameraButton) findViewById(R.id.btn_done)).setDegree(degree);
-    	((CameraButton) findViewById(R.id.btn_retake)).setDegree(degree);
+        ((CameraFlashButton) findViewById(R.id.flash_button)).setDegree(degree);
+        ((CameraButton) findViewById(R.id.btn_cancel)).setDegree(degree);
+        ((CameraButton) findViewById(R.id.btn_done)).setDegree(degree);
+        ((CameraButton) findViewById(R.id.btn_retake)).setDegree(degree);
     }
     
     private CameraFlashButtonCBInterface flashCB = new CameraFlashButtonCBInterface() {
-		@Override
-		public void onClickListener(int item) {
-			updateFlashModeParameter();
-		}		
-	};
+        @Override
+        public void onClickListener(int item) {
+            updateFlashModeParameter();
+        }        
+    };
 
     @Override
     public void onStop() {
         super.onStop();
-		FlurryAgent.onEndSession(this);
+        FlurryAgent.onEndSession(this);
         if (mMediaProviderClient != null) {
             mMediaProviderClient.release();
             mMediaProviderClient = null;
@@ -548,7 +548,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
                 restartPreview();
                 break;
             case R.id.btn_done:
-		        finish();
+                finish();
                 break;
             case R.id.btn_cancel:
                 doCancel();
@@ -557,7 +557,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
 
     private Bitmap makeBitmap(byte[] jpegData) {
         try {
-        	if(jpegData != null && jpegData.length > 0) {
+            if(jpegData != null && jpegData.length > 0) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length, options);
@@ -567,37 +567,37 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
             options.inPurgeable = true;
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             return BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length, options);
-        	}
+            }
         } catch (OutOfMemoryError ex) {
-        	ex.printStackTrace();
+            ex.printStackTrace();
         }
         return null;
     }
     
     private void doAttach() {
-    	if (mPausing) {
+        if (mPausing) {
             return;
         }
 
         byte[] data = mImageCapture.getLastCaptureData();
         if(mSaveUri != null && data != null) {
-        	Bitmap bitmap = createCaptureBitmap(data);
-		    OutputStream outputStream = null;
-		    try {
-		        outputStream = mContentResolver.openOutputStream(mSaveUri);
-		        if(bitmap != null) {
-			        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
-			        outputStream.close();
-			        bitmap.recycle();
-			        setResult(RESULT_OK);
-		        }
-		    } catch (IOException ex) {
-		    	ex.printStackTrace();
-		    } finally {
-		        closeSilently(outputStream);
-		    }
+            Bitmap bitmap = createCaptureBitmap(data);
+            OutputStream outputStream = null;
+            try {
+                outputStream = mContentResolver.openOutputStream(mSaveUri);
+                if(bitmap != null) {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+                    outputStream.close();
+                    bitmap.recycle();
+                    setResult(RESULT_OK);
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } finally {
+                closeSilently(outputStream);
+            }
         } else {
-        	setResult(RESULT_CANCELED);
+            setResult(RESULT_CANCELED);
         }
     }
         
@@ -640,7 +640,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
         } catch (IOException e) {
             return false;
         } finally {
-        	closeSilently(f);
+            closeSilently(f);
         }
         return true;
     }
@@ -651,7 +651,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
         try {
             exif = new ExifInterface(filepath);
         } catch (IOException ex) {
-        	ex.printStackTrace();
+            ex.printStackTrace();
         }
         if (exif != null) {
             int orientation = exif.getAttributeInt(
@@ -701,7 +701,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
     }
 
     @Override
-	public void onShutterButtonFocus(ShutterButton button, boolean pressed) {
+    public void onShutterButtonFocus(ShutterButton button, boolean pressed) {
         if (mPausing) {
             return;
         }
@@ -856,7 +856,7 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
             // ignore backs while we're taking a picture
             return;
         } else {
-        	doCancel();
+            doCancel();
             super.onBackPressed();
         }
     }
@@ -926,11 +926,11 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
 
     private void doFocus(boolean pressed) {
         // Do the focus if the mode is not infinity.
-	    if (pressed) { // Focus key down.
-	        autoFocus();
-	    } else { // Focus key up.
-	        cancelAutoFocus();
-	    }
+        if (pressed) { // Focus key down.
+            autoFocus();
+        } else { // Focus key up.
+            cancelAutoFocus();
+        }
     }
 
     @Override
@@ -1171,11 +1171,11 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
     }
     
     private void updateFlashModeParameter() {
-    	String flashMode = getFlashParameter(SharedPreferencesHelper.getSharedPreferences().getInt(getString(R.string.pref_key_flash_res_id), 0));
+        String flashMode = getFlashParameter(SharedPreferencesHelper.getSharedPreferences().getInt(getString(R.string.pref_key_flash_res_id), 0));
         mParameters.setFlashMode(flashMode);
-	}
+    }
 
-	private void initialCameraPictureSize(Context context, Parameters parameters) {
+    private void initialCameraPictureSize(Context context, Parameters parameters) {
         List<Size> supported = parameters.getSupportedPictureSizes();
         if (supported == null) return;
         for (String candidate : context.getResources().getStringArray(R.array.pref_camera_picturesize_entryvalues)) {
@@ -1232,17 +1232,17 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
     }
 
     private void setupCaptureParams() {
-    	Bundle extras = getIntent().getExtras();
-    	if(extras.containsKey(Constants.KEY_FULL_SIZE_IMAGE_PATH)) {
-    		mSaveUri = Uri.fromFile(new File(extras.getString(Constants.KEY_FULL_SIZE_IMAGE_PATH)));
-    	} else {
-    		Toast.makeText(getApplicationContext(), getString(R.string.camera_error_title), Toast.LENGTH_LONG).show();
-    		finish();
-    	}
+        Bundle extras = getIntent().getExtras();
+        if(extras.containsKey(Constants.KEY_FULL_SIZE_IMAGE_PATH)) {
+            mSaveUri = Uri.fromFile(new File(extras.getString(Constants.KEY_FULL_SIZE_IMAGE_PATH)));
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.camera_error_title), Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     private void showPostCaptureAlert() {
-    	mStatus = IMAGE_DISPLAYED;
+        mStatus = IMAGE_DISPLAYED;
         findViewById(R.id.camera_progress_bar).setVisibility(View.GONE);
         doAttach();
         mStatus = IDLE;
@@ -1268,13 +1268,13 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
             if (!hasStorage()) {
                 return NO_STORAGE_ERROR;
             } else {
-            	if(!ExpenseTrackerApplication.isInitialized){ExpenseTrackerApplication.Initialize();}
+                if(!ExpenseTrackerApplication.isInitialized){ExpenseTrackerApplication.Initialize();}
                 StatFs stat = new StatFs(Constants.DIRECTORY);
                 final int PICTURE_BYTES = 1500000;
                 mPicturesRemaining = (int)(((float) stat.getAvailableBlocks() * (float) stat.getBlockSize()) / PICTURE_BYTES);
             }
         } catch (Exception ex) {
-        	mPicturesRemaining = CANNOT_STAT_ERROR; 
+            mPicturesRemaining = CANNOT_STAT_ERROR; 
         }
         return mPicturesRemaining;
     }
@@ -1292,9 +1292,9 @@ public class Camera extends Activity implements View.OnClickListener, ShutterBut
     }
     
     private boolean checkFsWritable() {
-    	if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			if(!ExpenseTrackerApplication.isInitialized){ExpenseTrackerApplication.Initialize();}
-		}
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            if(!ExpenseTrackerApplication.isInitialized){ExpenseTrackerApplication.Initialize();}
+        }
         return new File(Constants.DIRECTORY).canWrite();
     }
 

@@ -14,36 +14,36 @@ import com.vinsol.expensetracker.R;
 
 public class ConfirmSaveEntryDialog extends AlertDialog implements DialogInterface.OnClickListener {
 
-	private boolean isOK;
-	
-	public ConfirmSaveEntryDialog(Context context) {
-		super(context);
-		setTitle(context.getString(R.string.confirm_discard));
-		setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.ok), this);
-		setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(R.string.cancel), this);
-	}
+    private boolean isOK;
+    
+    public ConfirmSaveEntryDialog(Context context) {
+        super(context);
+        setTitle(context.getString(R.string.confirm_discard));
+        setButton(DialogInterface.BUTTON_POSITIVE, context.getString(R.string.ok), this);
+        setButton(DialogInterface.BUTTON_NEGATIVE, context.getString(R.string.cancel), this);
+    }
 
-	public boolean isOK() {
-		return isOK;
-	}
+    public boolean isOK() {
+        return isOK;
+    }
 
-	@Override
-	public void onClick(DialogInterface dialog, int which) {
-		switch (which) {
-		
-		case BUTTON_POSITIVE:
-			isOK = true;
-			Toast.makeText(getContext(), getContext().getString(R.string.entry_discarded), Toast.LENGTH_SHORT).show();
-			break;
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+        
+        case BUTTON_POSITIVE:
+            isOK = true;
+            Toast.makeText(getContext(), getContext().getString(R.string.entry_discarded), Toast.LENGTH_SHORT).show();
+            break;
 
-		case BUTTON_NEGATIVE:
-			isOK = false;
-			break;
-			
-		default:
-			break;
-		}
-		dismiss();
-	}
+        case BUTTON_NEGATIVE:
+            isOK = false;
+            break;
+            
+        default:
+            break;
+        }
+        dismiss();
+    }
 
 }

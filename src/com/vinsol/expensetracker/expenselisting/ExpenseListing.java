@@ -28,65 +28,65 @@ import com.vinsol.expensetracker.helpers.UnfinishedEntryCount;
 
 public class ExpenseListing extends TabActivity implements OnClickListener{
 
-	private static UnfinishedEntryCount unfinishedEntryCount;
-	private static ConvertCursorToListString mConvertCursorToListString;
-	private static TextView unfinishedEntryCountAll;
-	private static TextView unfinishedEntryCountThisWeek;
-	private static TextView unfinishedEntryCountThisMonth;
-	private static TextView unfinishedEntryCountThisYear;
-	
-	@Override
-	protected void onStart() {
-		super.onStart();
-		FlurryAgent.onStartSession(this, getString(R.string.flurry_key));
-	}
-	
-	@Override
-	protected void onStop() {
-		super.onStop();
-		FlurryAgent.onEndSession(this);
-	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		FlurryAgent.onEvent(getString(R.string.expense_listing_activity));
-		setContentView(R.layout.expense_listing_tab);
-		mConvertCursorToListString = new ConvertCursorToListString(this);
-		unfinishedEntryCountAll = (TextView)findViewById(R.id.unfinished_count_all);
-		unfinishedEntryCountThisWeek = (TextView)findViewById(R.id.unfinished_count_this_week);
-		unfinishedEntryCountThisMonth = (TextView)findViewById(R.id.unfinished_count_this_month);
-		unfinishedEntryCountThisYear = (TextView)findViewById(R.id.unfinished_count_this_year);
-		setTab();
-		setUnfinishedEntryNotificationLayout();
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		resetUnfinishedEntryCount();
-	}
-	
-	public static void resetUnfinishedEntryCount() {
-		if(unfinishedEntryCountAll != null && unfinishedEntryCountThisMonth != null && unfinishedEntryCountThisMonth != null && unfinishedEntryCountThisYear != null) {
-			cancelUnfinishedEntryTask();
-			unfinishedEntryCount = new UnfinishedEntryCount(mConvertCursorToListString.getEntryList(false,""), unfinishedEntryCountThisWeek, unfinishedEntryCountThisMonth, unfinishedEntryCountThisYear, unfinishedEntryCountAll);
-			unfinishedEntryCount.execute();
-		}
-	}
-	
-	private void setUnfinishedEntryNotificationLayout() {
-		DisplayMetrics outMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-		params.setMargins(0, 0, outMetrics.widthPixels/24, 0);
-		unfinishedEntryCountThisMonth.setLayoutParams(params);
-		unfinishedEntryCountThisWeek.setLayoutParams(params);
-		unfinishedEntryCountThisYear.setLayoutParams(params);
-		unfinishedEntryCountAll.setLayoutParams(params);
-	}
+    private static UnfinishedEntryCount unfinishedEntryCount;
+    private static ConvertCursorToListString mConvertCursorToListString;
+    private static TextView unfinishedEntryCountAll;
+    private static TextView unfinishedEntryCountThisWeek;
+    private static TextView unfinishedEntryCountThisMonth;
+    private static TextView unfinishedEntryCountThisYear;
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, getString(R.string.flurry_key));
+    }
+    
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
+    }
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FlurryAgent.onEvent(getString(R.string.expense_listing_activity));
+        setContentView(R.layout.expense_listing_tab);
+        mConvertCursorToListString = new ConvertCursorToListString(this);
+        unfinishedEntryCountAll = (TextView)findViewById(R.id.unfinished_count_all);
+        unfinishedEntryCountThisWeek = (TextView)findViewById(R.id.unfinished_count_this_week);
+        unfinishedEntryCountThisMonth = (TextView)findViewById(R.id.unfinished_count_this_month);
+        unfinishedEntryCountThisYear = (TextView)findViewById(R.id.unfinished_count_this_year);
+        setTab();
+        setUnfinishedEntryNotificationLayout();
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resetUnfinishedEntryCount();
+    }
+    
+    public static void resetUnfinishedEntryCount() {
+        if(unfinishedEntryCountAll != null && unfinishedEntryCountThisMonth != null && unfinishedEntryCountThisMonth != null && unfinishedEntryCountThisYear != null) {
+            cancelUnfinishedEntryTask();
+            unfinishedEntryCount = new UnfinishedEntryCount(mConvertCursorToListString.getEntryList(false,""), unfinishedEntryCountThisWeek, unfinishedEntryCountThisMonth, unfinishedEntryCountThisYear, unfinishedEntryCountAll);
+            unfinishedEntryCount.execute();
+        }
+    }
+    
+    private void setUnfinishedEntryNotificationLayout() {
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 0, outMetrics.widthPixels/24, 0);
+        unfinishedEntryCountThisMonth.setLayoutParams(params);
+        unfinishedEntryCountThisWeek.setLayoutParams(params);
+        unfinishedEntryCountThisYear.setLayoutParams(params);
+        unfinishedEntryCountAll.setLayoutParams(params);
+    }
 
-	private void setTab() {
+    private void setTab() {
         TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
         tabHost.setup();
         Bundle intentExtras = getIntent().getExtras();
@@ -107,67 +107,67 @@ public class ExpenseListing extends TabActivity implements OnClickListener{
         tabHost.addTab(tabThisYear);
         tabHost.addTab(tabAll);
         tabHost.setCurrentTabByTag(getTag(intentExtras));
-	}
+    }
 
-	private void setExtras(TabHost tabHost, Intent intentThisWeek, Intent intentThisMonth, Intent intentThisYear, Intent intentAll, Bundle intentExtras) {
-		if(intentExtras != null && intentExtras.containsKey(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB)) {
-			Long timeInMillis = intentExtras.getLong(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(timeInMillis);
-			calendar.setFirstDayOfWeek(Calendar.MONDAY);
-			DisplayDate displayDate = new DisplayDate(calendar);
-			if(displayDate.isCurrentWeek()) {
-				intentThisWeek.putExtras(intentExtras);
-				return;
-			} else if (displayDate.isCurrentMonth()){
-				intentThisMonth.putExtras(intentExtras);
-				return;
-			} else if (displayDate.isNotCurrentMonthAndCurrentYear()){
-				intentThisYear.putExtras(intentExtras);
-				return;
-			} else {
-				intentAll.putExtras(intentExtras);
-				return;
-			}
-		}
-	}
+    private void setExtras(TabHost tabHost, Intent intentThisWeek, Intent intentThisMonth, Intent intentThisYear, Intent intentAll, Bundle intentExtras) {
+        if(intentExtras != null && intentExtras.containsKey(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB)) {
+            Long timeInMillis = intentExtras.getLong(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(timeInMillis);
+            calendar.setFirstDayOfWeek(Calendar.MONDAY);
+            DisplayDate displayDate = new DisplayDate(calendar);
+            if(displayDate.isCurrentWeek()) {
+                intentThisWeek.putExtras(intentExtras);
+                return;
+            } else if (displayDate.isCurrentMonth()){
+                intentThisMonth.putExtras(intentExtras);
+                return;
+            } else if (displayDate.isNotCurrentMonthAndCurrentYear()){
+                intentThisYear.putExtras(intentExtras);
+                return;
+            } else {
+                intentAll.putExtras(intentExtras);
+                return;
+            }
+        }
+    }
 
-	private String getTag(Bundle intentExtras) {
-		if(intentExtras != null && intentExtras.containsKey(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB)) {
-			Long timeInMillis = intentExtras.getLong(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(timeInMillis);
-			calendar.setFirstDayOfWeek(Calendar.MONDAY);
-			DisplayDate displayDate = new DisplayDate(calendar);
-			if(displayDate.isCurrentWeek()) {
-				return getString(R.string.tab_thisweek);
-			} else if (displayDate.isCurrentMonth()){
-				return getString(R.string.tab_thismonth);
-			} else if (displayDate.isNotCurrentMonthAndCurrentYear()){
-				return getString(R.string.tab_thisyear);
-			} else {
-				return getString(R.string.tab_all);
-			}
-		} else {
-			return getString(R.string.tab_thisweek);
-		}
-	}
+    private String getTag(Bundle intentExtras) {
+        if(intentExtras != null && intentExtras.containsKey(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB)) {
+            Long timeInMillis = intentExtras.getLong(Constants.KEY_TIME_IN_MILLIS_TO_SET_TAB);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(timeInMillis);
+            calendar.setFirstDayOfWeek(Calendar.MONDAY);
+            DisplayDate displayDate = new DisplayDate(calendar);
+            if(displayDate.isCurrentWeek()) {
+                return getString(R.string.tab_thisweek);
+            } else if (displayDate.isCurrentMonth()){
+                return getString(R.string.tab_thismonth);
+            } else if (displayDate.isNotCurrentMonthAndCurrentYear()){
+                return getString(R.string.tab_thisyear);
+            } else {
+                return getString(R.string.tab_all);
+            }
+        } else {
+            return getString(R.string.tab_thisweek);
+        }
+    }
 
-	@Override
-	public void onClick(View v) {
-		cancelUnfinishedEntryTask();
-	}
-	
-	@Override
-	protected void onPause() {
-		super.onPause();
-		cancelUnfinishedEntryTask();
-	}
-	
-	private static void cancelUnfinishedEntryTask() {
-		if(unfinishedEntryCount != null && !unfinishedEntryCount.isCancelled()) {
-			unfinishedEntryCount.cancel(true);
-		}
-	}
-	
+    @Override
+    public void onClick(View v) {
+        cancelUnfinishedEntryTask();
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancelUnfinishedEntryTask();
+    }
+    
+    private static void cancelUnfinishedEntryTask() {
+        if(unfinishedEntryCount != null && !unfinishedEntryCount.isCancelled()) {
+            unfinishedEntryCount.cancel(true);
+        }
+    }
+    
 }

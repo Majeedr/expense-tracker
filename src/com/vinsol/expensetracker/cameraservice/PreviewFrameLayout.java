@@ -63,7 +63,7 @@ public class PreviewFrameLayout extends ViewGroup {
         // "gripper" just to the left of it. If there is no enough space for
         // the gripper, the "frame" will be moved a little right so that
         // they won't overlap with each other.
-    	
+        
         int frameWidth = getWidth();
         int frameHeight = getHeight();
 

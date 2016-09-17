@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 /**
- * Copyright (c) 2012 Vinayak Solutions Private Limited 
+ * Copyright (c) 2012 Vinayak Solutions Private Limited
  * See the file license.txt for copying permission.
-*/     
+*/
  -->
-<RelativeLayout 
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -15,9 +15,9 @@
     <include
         layout="@layout/simple_header"
         android:id="@+id/include_header"/>
-    
+
     <!-- Date Bar -->
-    <LinearLayout  
+    <LinearLayout
         android:id="@+id/edit_date_bar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -26,13 +26,13 @@
         android:gravity="center"
         android:orientation="horizontal"
         >
-        
+
         <ImageButton
             android:id="@+id/edit_date_bar_previous_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/previous_arrow_states" />
-        
+
         <TextView
             android:id="@+id/edit_date_bar_dateview"
             android:layout_width="120dp"
@@ -42,27 +42,27 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginBottom="1dip" />
-        
+
         <ImageButton
             android:id="@+id/edit_date_bar_next_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/next_arrow_states" />
-        
+
     </LinearLayout>
-    
-    <TextView 
-	    android:id="@+id/edit_location_time"
-	    android:layout_height="wrap_content"
-	    android:layout_width="fill_parent"
-	    android:background="@drawable/notification_bg"
-	    android:textColor="@color/white"
-	    android:textStyle="bold"
-	    android:gravity="center_vertical"
-	    android:paddingLeft="7dip"
-	    android:layout_below="@id/edit_date_bar"
-	    android:visibility="gone" />
-        
+
+    <TextView
+        android:id="@+id/edit_location_time"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:background="@drawable/notification_bg"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="7dip"
+        android:layout_below="@id/edit_date_bar"
+        android:visibility="gone" />
+
     <!-- ScrollView for body -->
     <ScrollView
         android:id="@+id/edit_body"
@@ -71,14 +71,14 @@
         android:layout_above="@+id/edit_footer"
         android:layout_below="@id/edit_location_time"
         >
-        
+
         <!-- Layout because Scroll View can contain only single child -->
-        <LinearLayout 
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-            
+
             <!-- Camera Entry View -->
             <LinearLayout
                 android:id="@+id/edit_camera_details"
@@ -89,34 +89,34 @@
                 android:gravity="center"
                 android:visibility="gone"
                 >
-                
-                <ImageView 
+
+                <ImageView
                     android:id="@+id/edit_image_display"
                     android:layout_width="111dp"
                     android:layout_height="84dp"
                     android:background="@drawable/photo_frame"
                     android:layout_marginRight="10dp"
                     android:paddingTop="2dp"
-                   	android:paddingLeft="2.5dp"
-                   	android:paddingRight="2.5dp"
-                   	android:paddingBottom="3dp"
-                   	android:scaleType="fitXY" />
-                
-                <RelativeLayout 
+                       android:paddingLeft="2.5dp"
+                       android:paddingRight="2.5dp"
+                       android:paddingBottom="3dp"
+                       android:scaleType="fitXY" />
+
+                <RelativeLayout
                     android:id="@+id/edit_load_progress"
                     android:layout_width="111dp"
                     android:layout_height="84dp"
                     android:layout_marginRight="10dp"
                     android:gravity="center"
-                   	android:visibility="gone"
-                   	>
-                   	
-                	<ProgressBar 
-                	    android:layout_height="wrap_content"
-                	    android:layout_width="wrap_content" />
-                	
+                       android:visibility="gone"
+                       >
+
+                    <ProgressBar
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+
                 </RelativeLayout>
-                
+
                 <Button
                     android:id="@+id/edit_retake_button"
                     android:layout_width="wrap_content"
@@ -124,8 +124,8 @@
                     android:background="@drawable/retake_states"
                     android:layout_marginLeft="10dp" />
             </LinearLayout>
-			
-            <!-- Voice Entry View -->   
+
+            <!-- Voice Entry View -->
             <RelativeLayout
                 android:id="@+id/edit_voice_details"
                 android:layout_width="fill_parent"
@@ -134,16 +134,16 @@
                 android:layout_gravity="center"
                 android:visibility="gone"
                 >
-              	<Chronometer 
-              		android:id="@+id/edit_time_details_chronometer"
-                  	android:layout_width="fill_parent"
-                  	android:layout_height="wrap_content"
-                  	android:textSize="36sp"
-                  	android:textStyle="bold"
-                  	android:gravity="center_horizontal"
-                  	android:textColor="@color/black"
-                  	android:layout_marginTop="5dip" />
-                
+                  <Chronometer
+                      android:id="@+id/edit_time_details_chronometer"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textSize="36sp"
+                      android:textStyle="bold"
+                      android:gravity="center_horizontal"
+                      android:textColor="@color/black"
+                      android:layout_marginTop="5dip" />
+
                 <LinearLayout
                     android:id="@+id/edit_voice_control_buttons"
                     android:layout_width="fill_parent"
@@ -161,8 +161,8 @@
                         android:background="@drawable/voice_stop_states"
                         android:layout_marginLeft="5dip"
                         android:layout_marginRight="5dip" />
-                    
-                    <!-- play button -->    
+
+                    <!-- play button -->
                     <Button
                         android:id="@+id/edit_play_button"
                         android:layout_width="wrap_content"
@@ -171,8 +171,8 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:visibility="gone" />
-                    
-                    <!-- rerecord button -->    
+
+                    <!-- rerecord button -->
                     <Button
                         android:id="@+id/edit_rerecord_button"
                         android:layout_width="wrap_content"
@@ -184,8 +184,8 @@
                 </LinearLayout>
             </RelativeLayout>
 
-	        <!-- Common Text Entry fields -->
-	        <!-- amount -->
+            <!-- Common Text Entry fields -->
+            <!-- amount -->
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -203,33 +203,33 @@
                     android:paddingRight="20dp"
                     />
 
-    	        <EditText
-    	            android:id="@+id/edit_amount"
-    	            android:imeOptions="actionNext"
-    	            android:layout_width="fill_parent"
-    	            android:layout_height="wrap_content"
-    	            android:hint="@string/amount"
-    	            android:inputType="numberDecimal"
-    	            android:layout_marginLeft="7dp"
+                <EditText
+                    android:id="@+id/edit_amount"
+                    android:imeOptions="actionNext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/amount"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="7dp"
                     />
             </LinearLayout>
-	        <!-- description -->
-	        <EditText
-	            android:id="@+id/edit_tag"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:minLines="4"
-	            android:gravity="top"
-	            android:layout_marginTop="7dp"
-	            android:layout_marginRight="7dp"
-            	android:layout_marginLeft="7dp"
-            	android:hint="@string/description" />
-	        
-	        <include 
-	            layout="@layout/favorite"/>
-        </LinearLayout>	
+            <!-- description -->
+            <EditText
+                android:id="@+id/edit_tag"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:minLines="4"
+                android:gravity="top"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
+                android:hint="@string/description" />
+
+            <include
+                layout="@layout/favorite"/>
+        </LinearLayout>
     </ScrollView>
-    
+
     <!-- Body for favorite entry -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -241,15 +241,15 @@
         android:id="@+id/edit_body_favorite"
         android:orientation="vertical"
         >
-        
-        <EditText 
+
+        <EditText
             android:id="@+id/favorite_search"
             android:hint="@string/search"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:visibility="gone" />
-        
-        <TextView 
+
+        <TextView
             android:id="@+id/edit_body_favorite_tag"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
@@ -259,22 +259,22 @@
             android:textStyle="bold"
             android:gravity="center_vertical"
             android:paddingLeft="7dip" />
-                
-        <ListView 
+
+        <ListView
             android:id="@+id/edit_body_favorite_listview"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:cacheColorHint="@android:color/transparent" 
+            android:cacheColorHint="@android:color/transparent"
             android:divider="@drawable/list_divider"
             android:footerDividersEnabled="false" />
-        
+
         <ImageView
             android:background="@drawable/list_divider"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"/>
-        
+
     </LinearLayout>
-        
+
     <!-- Footer -->
     <LinearLayout
         android:id="@id/edit_footer"
@@ -293,7 +293,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/save_entry_states"
             android:layout_marginRight="5dp" />
-        
+
         <Button
             android:id="@+id/edit_delete"
             android:layout_width="wrap_content"

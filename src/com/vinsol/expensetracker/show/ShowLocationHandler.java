@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 public class ShowLocationHandler {
 
-	private TextView showLocation;
+    private TextView showLocation;
 
-	public ShowLocationHandler(Activity activity, String location) {
-		showLocation = (TextView) activity.findViewById(R.id.show_location);
-		showLocation.setText(location);
-	}
+    public ShowLocationHandler(Activity activity, String location) {
+        showLocation = (TextView) activity.findViewById(R.id.show_location);
+        showLocation.setText(location);
+    }
 
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
 /**
- * Copyright (c) 2012 Vinayak Solutions Private Limited 
+ * Copyright (c) 2012 Vinayak Solutions Private Limited
  * See the file license.txt for copying permission.
-*/     
+*/
  -->
 <resources>
 
@@ -23,11 +23,11 @@
     <string name="unfinished_cameraentry">Unfinished Camera Entry</string>
     <string name="unfinished_voiceentry">Unfinished Voice Entry</string>
     <string name="unknown_location">Unknown location</string>
-    
+
     <!-- Sync Page -->
     <string name="signin">Sign in</string>
     <string name="signup">Sign up</string>
-    
+
     <!-- Default SyncBit Values -->
     <string name="syncbit_synced">1</string>
     <string name="syncbit_created">2</string>
@@ -35,16 +35,16 @@
     <string name="syncbit_deleted">4</string>
     <string name="syncbit_conflict">5</string>
     <string name="syncbit_not_synced">6</string>
-    
+
     <!-- XML Text -->
     <string name="no_expenses_text">No expenses available to show, Please add expenses</string>
     <string name="favorite_selection_text">Choose an entry to add to expenses</string>
     <string name="search">Search</string>
-    
+
     <string name="finished_textentry">Text Entry</string>
     <string name="finished_cameraentry">Camera Entry</string>
     <string name="finished_voiceentry">Voice Entry</string>
-    
+
     <!-- Flurry Events -->
     <string name="flurry_key">TWN1Q86PGWA7WWEPDWXA</string>
     <string name="generate_report">Generate Report</string>
@@ -70,14 +70,14 @@
     <string name="generate_report_activity">Generate Report Activity</string>
     <string name="home_screen">Home Screen</string>
     <string name="preference_delete_dialog">Preference Delete Dialog</string>
-    
+
     <!-- Toast Text -->
     <string name="entry_discarded">Discarded</string>
-    
+
     <!-- Activity Title -->
     <string name="manage_favorites">Manage Favorites</string>
     <string name="edit_favorite">Edit Favorite</string>
-    
+
     <!-- Preferences Key -->
     <string name="pref_key_delete_dialog">prefKeyDeleteDialog</string>
     <string name="pref_key_token">prefKeyToken</string>
@@ -89,11 +89,11 @@
     <string name="pref_key_flash_res_id">prefKeyFlashResId</string>
     <string name="pref_key_run_first_time">prefKeyRunFirstTime</string>
     <string name="pref_key_sync_timestamp">prefKeySyncTimeStamp</string>
-    
+
     <!-- Preferences Title-->
     <string name="delete_dialog_title">Show delete confirmation dialog</string>
     <string name="sync_pref_title">Set Up Sync</string>
-        
+
     <!-- Dialog Text -->
     <string name="delete_dialog_text">Delete this entry?</string>
     <string name="ok">OK</string>
@@ -102,11 +102,11 @@
     <string name="unfinish_fav_text">Unfinished entry, Discard this entry?</string>
     <string name="cancel">Cancel</string>
     <string name="date_picker_dialog_error_message">Future dates are not allowed</string>
-    
+
     <!-- Dialog Title -->
     <string name="confirm_discard">Confirm Discard</string>
     <string name="confirm_delete">Confirm Delete</string>
-    
+
     <!-- Tab Index -->
     <string name="tab_thisweek">This Week</string>
     <string name="tab_thismonth">This Month</string>
@@ -135,11 +135,11 @@
     <string name="preparing_sd">Preparing SD card\u2026</string>
 
     <string name="details_ok">OK</string>
-    
+
     <!-- Name of the button in the date/time picker to accept the date/time change -->
     <string name="date_time_set">Set</string>
-    
+
     <string name="amount">amount</string>
     <string name="description">description</string>
-    
+
 </resources>

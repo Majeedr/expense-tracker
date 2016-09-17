@@ -24,12 +24,12 @@
         <item name="android:windowExitAnimation">@anim/on_screen_hint_exit</item>
     </style>
     <style name="PreferencesTheme">
-    	<item name="android:textColor">@color/black</item>
-    	<item name="android:textSize">16sp</item>
-	</style>
-	<style name="Theme_Dialog_Translucent"
-    	parent="android:Theme.Dialog">
-    	<item name="android:windowBackground">@null</item>
-	</style>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="Theme_Dialog_Translucent"
+        parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@null</item>
+    </style>
     
 </resources>

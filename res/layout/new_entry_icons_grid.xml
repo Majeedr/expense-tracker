@@ -11,50 +11,50 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:gravity="center"
-	android:id="@+id/new_entry_icons_grid"
-    >    		
-	<!-- text and voice button -->
-	<LinearLayout
-	    android:id="@+id/home_text_voice"
-   		android:layout_width="fill_parent"
-   		android:layout_height="wrap_content"
-   		android:layout_marginBottom="20dp"
-   		android:gravity="center"
-   		>
-   		<Button
-   		    android:id="@+id/home_text"
-   		    android:layout_width="wrap_content"
-   		    android:layout_height="wrap_content"
-   		    android:layout_marginRight="60dp"
-   		    android:background="@drawable/home_text_states"  />
-  		    
- 		<Button
-   		    android:id="@+id/home_voice"
-   		    android:layout_width="wrap_content"
-   		    android:layout_height="wrap_content"
-   		    android:background="@drawable/home_voice_states" 
-   		    android:layout_marginLeft="60dp" />
- 	</LinearLayout>
- 		
-	<!-- camera and favorite button -->    
+    android:id="@+id/new_entry_icons_grid"
+    >            
+    <!-- text and voice button -->
     <LinearLayout
-	    android:id="@+id/home_camera_favorites"
-   		android:layout_width="fill_parent"
-   		android:layout_height="wrap_content"
-   		android:gravity="center" 
-   		>
-   		<Button
-       		android:id="@+id/home_camera"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:background="@drawable/home_camera_states" 
-       		android:layout_marginRight="40dp" />
+        android:id="@+id/home_text_voice"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="20dp"
+           android:gravity="center"
+           >
+           <Button
+               android:id="@+id/home_text"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="60dp"
+               android:background="@drawable/home_text_states"  />
+              
+         <Button
+               android:id="@+id/home_voice"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/home_voice_states" 
+               android:layout_marginLeft="60dp" />
+     </LinearLayout>
+         
+    <!-- camera and favorite button -->    
+    <LinearLayout
+        android:id="@+id/home_camera_favorites"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center" 
+           >
+           <Button
+               android:id="@+id/home_camera"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/home_camera_states" 
+               android:layout_marginRight="40dp" />
 
-   		<Button
-       		android:id="@+id/home_favorite"
-       		android:layout_width="wrap_content"
-       		android:layout_height="wrap_content"
-       		android:background="@drawable/home_favorites_states"
-       		android:layout_marginLeft="40dp"  />
- 	</LinearLayout>
+           <Button
+               android:id="@+id/home_favorite"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/home_favorites_states"
+               android:layout_marginLeft="40dp"  />
+     </LinearLayout>
 </LinearLayout>

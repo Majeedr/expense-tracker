@@ -41,31 +41,31 @@ public class CustomDatePickerDialog extends AlertDialog implements OnClickListen
     }
     
     public CustomDatePickerDialog(Context context,OnDateSetListener callBack,TextView textView) {
-    	super(context);
-    	mCallBack = callBack;
-    	String dateViewString = textView.getText().toString();
-    	int year, month, day;
-    	if(dateViewString != null && !dateViewString.equals("")) {
-    		if (dateViewString.contains("Today")) {
-    			Calendar mCalendar = Calendar.getInstance();
-    			mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-    			year = mCalendar.get(Calendar.YEAR);
-    			dateViewString = (String) dateViewString.subSequence(7,dateViewString.length());
-    		} else {
-    			year = Integer.parseInt((String) dateViewString.subSequence(dateViewString.length() - 4, dateViewString.length()));
-    			dateViewString = (String) dateViewString.subSequence(0,dateViewString.length() - 6);
-    		}
-    		month = new GetMonth().getMonth((String) dateViewString.subSequence(0, 3));
-    		dateViewString = (String) dateViewString.subSequence(4,dateViewString.length());
-    		day = Integer.parseInt(dateViewString);
-    	} else {
-    		Calendar tempCalendar = Calendar.getInstance();
-    		tempCalendar.set(tempCalendar.get(Calendar.YEAR), tempCalendar.get(Calendar.MONTH), tempCalendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-    		tempCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-    		year = tempCalendar.get(Calendar.YEAR);
-    		month = tempCalendar.get(Calendar.MONTH);
-    		day = tempCalendar.get(Calendar.DAY_OF_MONTH);
-    	}
+        super(context);
+        mCallBack = callBack;
+        String dateViewString = textView.getText().toString();
+        int year, month, day;
+        if(dateViewString != null && !dateViewString.equals("")) {
+            if (dateViewString.contains("Today")) {
+                Calendar mCalendar = Calendar.getInstance();
+                mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+                year = mCalendar.get(Calendar.YEAR);
+                dateViewString = (String) dateViewString.subSequence(7,dateViewString.length());
+            } else {
+                year = Integer.parseInt((String) dateViewString.subSequence(dateViewString.length() - 4, dateViewString.length()));
+                dateViewString = (String) dateViewString.subSequence(0,dateViewString.length() - 6);
+            }
+            month = new GetMonth().getMonth((String) dateViewString.subSequence(0, 3));
+            dateViewString = (String) dateViewString.subSequence(4,dateViewString.length());
+            day = Integer.parseInt(dateViewString);
+        } else {
+            Calendar tempCalendar = Calendar.getInstance();
+            tempCalendar.set(tempCalendar.get(Calendar.YEAR), tempCalendar.get(Calendar.MONTH), tempCalendar.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+            tempCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+            year = tempCalendar.get(Calendar.YEAR);
+            month = tempCalendar.get(Calendar.MONTH);
+            day = tempCalendar.get(Calendar.DAY_OF_MONTH);
+        }
         mInitialYear = year;
         mInitialMonth = month;
         mInitialDay = day;
@@ -92,21 +92,21 @@ public class CustomDatePickerDialog extends AlertDialog implements OnClickListen
     @Override
     public void onDateChanged(DatePicker view, int year,int month, int day) {
         boolean color = true;
-		if (isDateAfter(view)) {
-			textViewVisible();
-			Calendar mCalendar = Calendar.getInstance();
-			mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-			if (color) {
-				view.init(mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH), this);
-				color = false;
-			} else {
-				view.init(year, month, day, null);
-			}
+        if (isDateAfter(view)) {
+            textViewVisible();
+            Calendar mCalendar = Calendar.getInstance();
+            mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+            if (color) {
+                view.init(mCalendar.get(Calendar.YEAR),mCalendar.get(Calendar.MONTH),mCalendar.get(Calendar.DAY_OF_MONTH), this);
+                color = false;
+            } else {
+                view.init(year, month, day, null);
+            }
 
-		} else {
-			textViewInvisible();
-	        updateTitle(year, month, day);
-		}
+        } else {
+            textViewInvisible();
+            updateTitle(year, month, day);
+        }
     }
 
     private void updateTitle(int year, int month, int day) {
@@ -136,22 +136,22 @@ public class CustomDatePickerDialog extends AlertDialog implements OnClickListen
     }
     
     private void textViewInvisible() {
-		((TextView) findViewById(R.id.new_date_label)).setVisibility(View.INVISIBLE);
-	}
+        ((TextView) findViewById(R.id.new_date_label)).setVisibility(View.INVISIBLE);
+    }
 
-	private void textViewVisible() {
-		((TextView) findViewById(R.id.new_date_label)).setVisibility(View.VISIBLE);
-	}
+    private void textViewVisible() {
+        ((TextView) findViewById(R.id.new_date_label)).setVisibility(View.VISIBLE);
+    }
 
-	private boolean isDateAfter(DatePicker tempView) {
-		Calendar mCalendar = Calendar.getInstance();
-		mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-		Calendar tempCalendar = Calendar.getInstance();
-		tempCalendar.set(tempView.getYear(), tempView.getMonth(),tempView.getDayOfMonth(), 0, 0, 0);
-		tempCalendar.setFirstDayOfWeek(Calendar.MONDAY);
-		if (tempCalendar.after(mCalendar))
-			return true;
-		else
-			return false;
-	}
+    private boolean isDateAfter(DatePicker tempView) {
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+        Calendar tempCalendar = Calendar.getInstance();
+        tempCalendar.set(tempView.getYear(), tempView.getMonth(),tempView.getDayOfMonth(), 0, 0, 0);
+        tempCalendar.setFirstDayOfWeek(Calendar.MONDAY);
+        if (tempCalendar.after(mCalendar))
+            return true;
+        else
+            return false;
+    }
 }

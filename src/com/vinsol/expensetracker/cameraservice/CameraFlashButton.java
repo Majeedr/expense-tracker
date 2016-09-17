@@ -20,9 +20,9 @@ import com.vinsol.expensetracker.helpers.SharedPreferencesHelper;
 
 public class CameraFlashButton extends ImageView implements OnClickListener {
 
-	private int[] resId = {R.drawable.flash_auto, R.drawable.flash_disable, R.drawable.flash_enable};
-	private int selectedResId = 0;
-	private CameraFlashButtonCBInterface mCallbackInterface = null;
+    private int[] resId = {R.drawable.flash_auto, R.drawable.flash_disable, R.drawable.flash_enable};
+    private int selectedResId = 0;
+    private CameraFlashButtonCBInterface mCallbackInterface = null;
 
     private static final int ANIMATION_SPEED = 180; // 180 deg/sec
 
@@ -34,37 +34,37 @@ public class CameraFlashButton extends ImageView implements OnClickListener {
 
     private long mAnimationStartTime = 0;
     private long mAnimationEndTime = 0;
-	
-	public CameraFlashButton(Context context) {
-		super(context);
-	}
-	
-	public CameraFlashButton(Context context,AttributeSet attr) {
-		super(context,attr);
-	}
+    
+    public CameraFlashButton(Context context) {
+        super(context);
+    }
+    
+    public CameraFlashButton(Context context,AttributeSet attr) {
+        super(context,attr);
+    }
 
-	public void setButtonCallback(CameraFlashButtonCBInterface callback) {
-		mCallbackInterface = callback;
-		if(mCallbackInterface != null)
-			mCallbackInterface.onClickListener(selectedResId);
-	}
-	
-	private void Initialize() {
-		selectedResId = SharedPreferencesHelper.getSharedPreferences().getInt(getContext().getString(R.string.pref_key_flash_res_id), 0);
-		setImageDrawable(getResources().getDrawable(resId[selectedResId]));
-		setOnClickListener(this);
-	}
+    public void setButtonCallback(CameraFlashButtonCBInterface callback) {
+        mCallbackInterface = callback;
+        if(mCallbackInterface != null)
+            mCallbackInterface.onClickListener(selectedResId);
+    }
+    
+    private void Initialize() {
+        selectedResId = SharedPreferencesHelper.getSharedPreferences().getInt(getContext().getString(R.string.pref_key_flash_res_id), 0);
+        setImageDrawable(getResources().getDrawable(resId[selectedResId]));
+        setOnClickListener(this);
+    }
 
-	@Override
-	public void onClick(View v) {
-		selectedResId++;
-		selectedResId%=3;
-		invalidate();
-		SharedPreferencesHelper.setFlashPrefs(selectedResId);
-		mCallbackInterface.onClickListener(selectedResId);
-	}
-	
-	public void setDegree(int degree) {
+    @Override
+    public void onClick(View v) {
+        selectedResId++;
+        selectedResId%=3;
+        invalidate();
+        SharedPreferencesHelper.setFlashPrefs(selectedResId);
+        mCallbackInterface.onClickListener(selectedResId);
+    }
+    
+    public void setDegree(int degree) {
         degree = degree >= 0 ? degree % 360 : degree % 360 + 360;
         if (degree == mTargetDegree) return;
 
@@ -81,11 +81,11 @@ public class CameraFlashButton extends ImageView implements OnClickListener {
 
         invalidate();
     }
-	
-	@Override
+    
+    @Override
     protected void onDraw(Canvas canvas) {
-		Initialize();
-		
+        Initialize();
+        
         Drawable drawable = getDrawable();
         if (drawable == null) return;
 

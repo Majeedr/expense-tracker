@@ -15,7 +15,7 @@ import android.widget.ImageView;
  * pressed state changes.
  */
 public class ShutterButton extends ImageView {
-	
+    
     /**
      * A callback to be invoked when a ShutterButton's pressed state changes.
      */

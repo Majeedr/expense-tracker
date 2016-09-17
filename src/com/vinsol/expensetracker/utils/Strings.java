@@ -6,20 +6,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Strings {
-	public static final String EMPTY = "";
-	
-	public static String InputStreamToString(InputStream inputStream){
-    	InputStreamReader isr = new InputStreamReader(inputStream);  	// Input stream that translates bytes to characters
-    	BufferedReader br = new BufferedReader(isr); 					// Buffered input character stream
-    	String str;
-    	StringBuilder output = new StringBuilder();
-    	try {
-			while((str = br.readLine())!= null){ output.append(str); }
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	return output.toString();
-	}
+    public static final String EMPTY = "";
+    
+    public static String InputStreamToString(InputStream inputStream){
+        InputStreamReader isr = new InputStreamReader(inputStream);      // Input stream that translates bytes to characters
+        BufferedReader br = new BufferedReader(isr);                     // Buffered input character stream
+        String str;
+        StringBuilder output = new StringBuilder();
+        try {
+            while((str = br.readLine())!= null){ output.append(str); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return output.toString();
+    }
 
     public static String toString( final Object o ) {
         return toString(o,"");

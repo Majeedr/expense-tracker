@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 public class CameraButton extends ImageView {
-	private static final int ANIMATION_SPEED = 180; // 180 deg/sec
+    private static final int ANIMATION_SPEED = 180; // 180 deg/sec
 
     private int mCurrentDegree = 0; // [0, 359]
     private int mStartDegree = 0;
@@ -24,16 +24,16 @@ public class CameraButton extends ImageView {
 
     private long mAnimationStartTime = 0;
     private long mAnimationEndTime = 0;
-	
-	public CameraButton(Context context) {
-		super(context);
-	}
-	
-	public CameraButton(Context context,AttributeSet attr) {
-		super(context,attr);
-	}
-	
-	public void setDegree(int degree) {
+    
+    public CameraButton(Context context) {
+        super(context);
+    }
+    
+    public CameraButton(Context context,AttributeSet attr) {
+        super(context,attr);
+    }
+    
+    public void setDegree(int degree) {
         degree = degree >= 0 ? degree % 360 : degree % 360 + 360;
         if (degree == mTargetDegree) return;
 
@@ -50,10 +50,10 @@ public class CameraButton extends ImageView {
 
         invalidate();
     }
-	
-	@Override
+    
+    @Override
     protected void onDraw(Canvas canvas) {
-		
+        
         Drawable drawable = getDrawable();
         if (drawable == null) return;
 

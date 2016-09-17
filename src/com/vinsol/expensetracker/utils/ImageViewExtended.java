@@ -12,32 +12,32 @@ import android.widget.ImageView;
 
 public class ImageViewExtended extends ImageView {
 
-	public ImageViewExtended(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-	}
+    public ImageViewExtended(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
 
-	public ImageViewExtended(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
+    public ImageViewExtended(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
-	public ImageViewExtended(Context context) {
-		super(context);
-	}
-	
-	@Override
-	public void setPressed(boolean pressed) {
-		if (pressed && ((View) getParent()).isPressed()) {
+    public ImageViewExtended(Context context) {
+        super(context);
+    }
+    
+    @Override
+    public void setPressed(boolean pressed) {
+        if (pressed && ((View) getParent()).isPressed()) {
             return;
         }
-		super.setPressed(pressed);
-	}
-	
-	@Override
-	public void setSelected(boolean selected) {
-		if (selected && ((View) getParent()).isSelected()) {
+        super.setPressed(pressed);
+    }
+    
+    @Override
+    public void setSelected(boolean selected) {
+        if (selected && ((View) getParent()).isSelected()) {
             return;
         }
-		super.setSelected(selected);
-	}
-	
+        super.setSelected(selected);
+    }
+    
 }

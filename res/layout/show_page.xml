@@ -24,12 +24,12 @@
         android:layout_below="@id/include_header"
         android:layout_above="@+id/show_footer"
         >
-    	<LinearLayout
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-           	android:orientation="vertical" >          
+               android:orientation="vertical" >          
             
-    	    <!-- camera entry -->
+            <!-- camera entry -->
             <LinearLayout
                 android:id="@+id/show_camera_details"
                 android:layout_width="fill_parent"
@@ -45,10 +45,10 @@
                     android:background="@drawable/photo_frame"
                     android:layout_marginRight="10dp"
                     android:paddingTop="5dp"
-                   	android:paddingLeft="5dp"
-                   	android:paddingRight="5dp"
-                   	android:paddingBottom="8dp"
-                   	android:scaleType="fitXY" />
+                       android:paddingLeft="5dp"
+                       android:paddingRight="5dp"
+                       android:paddingBottom="8dp"
+                       android:scaleType="fitXY" />
                 
             </LinearLayout>
             
@@ -62,13 +62,13 @@
                 
                 <Chronometer 
                     android:id="@+id/show_time_details_chronometer"
-                  	android:layout_width="fill_parent"
-                  	android:layout_height="wrap_content"
-                  	android:textSize="36sp"
-                  	android:textStyle="bold"
-                  	android:gravity="center_horizontal"
-                  	android:textColor="@color/black"
-                  	android:layout_marginTop="5dip" />
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:textSize="36sp"
+                      android:textStyle="bold"
+                      android:gravity="center_horizontal"
+                      android:textColor="@color/black"
+                      android:layout_marginTop="5dip" />
                 
                 <LinearLayout
                     android:id="@+id/show_voice_control_buttons"
@@ -94,8 +94,8 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/voice_play_states" />
                     
-              	</LinearLayout>    
-              	
+                  </LinearLayout>    
+                  
             </RelativeLayout>
             
             <!--common amount and description field -->     
@@ -108,8 +108,8 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="7dp"
-            	android:layout_marginRight="7dp"
-            	android:layout_marginTop="10dip" />
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="10dip" />
             
             <!-- amount value -->
             <TextView
@@ -119,75 +119,75 @@
                 android:textColor="@color/black"
                 android:textSize="20dip"
                 android:layout_marginLeft="7dp"
-            	android:layout_marginRight="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_marginBottom="10dp" />
             
             <!-- divider -->    
             <View 
                 android:id="@+id/show_divider_amount_desc"
-	           	android:layout_width="fill_parent"
-	           	android:layout_height="wrap_content"
-	           	android:background="@drawable/list_divider"
-	           	android:layout_marginBottom="10dp" />
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/list_divider"
+                   android:layout_marginBottom="10dp" />
                 
             <!-- description header -->
             <TextView 
-            	android:id="@+id/show_description_show"
-            	android:layout_height="wrap_content"
-            	android:layout_width="wrap_content"
-            	android:text="Description:"
-            	android:textColor="@color/black"
-            	android:textSize="18dip"
-            	android:textStyle="bold"
-            	android:layout_marginLeft="7dp"
-            	android:layout_marginRight="7dp"
+                android:id="@+id/show_description_show"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Description:"
+                android:textColor="@color/black"
+                android:textSize="18dip"
+                android:textStyle="bold"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_marginBottom="5dp" />
                 
             <!-- description text view -->    
-       		<TextView 
-              	android:id="@+id/show_tag_textview"
-              	android:layout_width="fill_parent"
-              	android:layout_height="wrap_content"
-              	android:gravity="top"
-              	android:textSize="20dip"
-              	android:textColor="@color/black"
-              	android:layout_marginLeft="7dp"
-            	android:layout_marginRight="7dp" />
+               <TextView 
+                  android:id="@+id/show_tag_textview"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="top"
+                  android:textSize="20dip"
+                  android:textColor="@color/black"
+                  android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp" />
             
-           	<!-- divider -->    
+               <!-- divider -->    
             <View 
-	           	android:layout_width="fill_parent"
-	           	android:layout_height="wrap_content"
-	           	android:background="@drawable/list_divider"
-	           	android:layout_marginTop="10dp"
-	           	android:layout_marginBottom="15dp" /> 
-	           	
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/list_divider"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="15dp" /> 
+                   
             <!-- Location header -->
             <TextView 
-            	android:id="@+id/show_location_header"
-            	android:layout_height="wrap_content"
-            	android:layout_width="wrap_content"
-            	android:text="Location:"
-            	android:textColor="@color/black"
-            	android:textSize="18dip"
-            	android:textStyle="bold"
-            	android:layout_marginLeft="7dp"
-            	android:layout_marginRight="7dp"
+                android:id="@+id/show_location_header"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Location:"
+                android:textColor="@color/black"
+                android:textSize="18dip"
+                android:textStyle="bold"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
                 android:layout_marginBottom="5dp" />
                 
-       		<TextView 
-              	android:id="@+id/show_location"
-              	android:layout_width="fill_parent"
-              	android:layout_height="wrap_content"
-              	android:gravity="top"
-              	android:text="@string/unknown_location"
-              	android:textSize="20dip"
-              	android:textColor="@color/black"
-              	android:layout_marginLeft="7dp"
-            	android:layout_marginRight="7dp" />
+               <TextView 
+                  android:id="@+id/show_location"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="top"
+                  android:text="@string/unknown_location"
+                  android:textSize="20dip"
+                  android:textColor="@color/black"
+                  android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp" />
             
-           	<include 
-           	    layout="@layout/favorite"/>
+               <include 
+                   layout="@layout/favorite"/>
             
         </LinearLayout>
         
@@ -211,8 +211,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edit_states"
             android:layout_marginRight="7dp" />
-       	<!-- delete button -->
-       	<Button
+           <!-- delete button -->
+           <Button
             android:id="@+id/show_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
