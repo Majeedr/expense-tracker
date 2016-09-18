@@ -22,10 +22,9 @@ import com.vinsol.expensetracker.utils.Utils;
 public class DatabaseAdapter {
 
     // database and table name
-    private static int DB_VERSION = 3;
+    private static int DB_VERSION = 1;
     private final String DATABASE_NAME = "ExpenseTrackerDB";
     private final String ENTRY_TABLE = "EntryTable";
-    private final String FAVORITE_TABLE = "FavoriteTable";
 
     private final String PREVIOUS_VERSION_ENTRY_TABLE = "ExpenseTrackerTable";
     private Context context;
@@ -57,7 +56,7 @@ public class DatabaseAdapter {
             + KEY_TRANSACTION_TYPE + " TEXT, "
             + KEY_DATE_TIME + " TEXT NOT NULL,"
             + KEY_LOCATION + " TEXT, "
-            + KEY_FAVORITE + " INTEGER, "
+            + KEY_FAVORITE + " BOOLEAN DEFAULT 'FALSE' NOT NULL, "
             + KEY_TYPE + " VARCHAR(1) NOT NULL, "
             + KEY_ID_FROM_SERVER + " INTEGER UNIQUE, "
             + KEY_UPDATED_AT + " STRING, "
@@ -68,24 +67,6 @@ public class DatabaseAdapter {
             + KEY_FILE_TO_DOWNLOAD +" BOOLEAN DEFAULT 'FALSE', "
             + KEY_FILE_UPDATED_AT +" STRING "
             + ")";
-
-    private final String FAVORITE_TABLE_CREATE = "create table if not exists "
-            + FAVORITE_TABLE + "("
-            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-            + KEY_TAG + " TEXT,"
-            + KEY_AMOUNT + " TEXT, "
-            + KEY_TYPE + " VARCHAR(1) NOT NULL, "
-            + KEY_LOCATION + " TEXT, "
-            + KEY_ID_FROM_SERVER + " INTEGER UNIQUE, "
-            + KEY_UPDATED_AT + " STRING, "
-            + KEY_MY_HASH + " TEXT, "
-            + KEY_DELETE_BIT + " BOOLEAN DEFAULT 'FALSE', "
-            + KEY_SYNC_BIT +" INTEGER, "
-            + KEY_FILE_UPLOADED +" BOOLEAN DEFAULT 'FALSE', "
-            + KEY_FILE_TO_DOWNLOAD +" BOOLEAN DEFAULT 'FALSE', "
-            + KEY_FILE_UPDATED_AT +" STRING "
-            + ")";
-
 
     private SQLiteDatabase db;
     private MyCreateOpenHelper createOpenHelper;
@@ -598,7 +579,6 @@ public class DatabaseAdapter {
         @Override
         public void onCreate(SQLiteDatabase database) {
             database.execSQL(ENTRY_TABLE_CREATE);
-            database.execSQL(FAVORITE_TABLE_CREATE);
         }
 
         @Override
@@ -608,29 +588,8 @@ public class DatabaseAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int prevVersion, int newVersion) {
-            if(prevVersion == 1) {
-                db.execSQL("ALTER TABLE " + PREVIOUS_VERSION_ENTRY_TABLE +" RENAME TO "+ENTRY_TABLE);
-            }
-            if(prevVersion == 2) {
-                db.execSQL("ALTER TABLE " + FAVORITE_TABLE +" ADD "+KEY_LOCATION+" TEXT");
-            }
-            if(prevVersion == 3) {
-                db.execSQL("ALTER TABLE " + ENTRY_TABLE +" ADD ("+KEY_ID_FROM_SERVER+" INTEGER UNIQUE," +
-                          KEY_UPDATED_AT+" STRING," +
-                          KEY_MY_HASH+" TEXT," +
-                          KEY_DELETE_BIT+" BOOLEAN DEFAULT 'FALSE'," +
-                          KEY_SYNC_BIT+" INTEGER," +
-                          KEY_FILE_UPLOADED +" BOOLEAN DEFAULT 'FALSE'," +
-                          KEY_FILE_TO_DOWNLOAD +" BOOLEAN DEFAULT 'FALSE', " +
-                          KEY_FILE_UPDATED_AT +" STRING);");
-                db.execSQL("ALTER TABLE " + FAVORITE_TABLE +" ADD ("+KEY_ID_FROM_SERVER+" INTEGER UNIQUE," +
-                          KEY_UPDATED_AT+" STRING," +
-                          KEY_MY_HASH+" TEXT," +
-                          KEY_DELETE_BIT+" BOOLEAN DEFAULT 'FALSE'," +
-                          KEY_SYNC_BIT+" INTEGER," +
-                          KEY_FILE_UPLOADED +" BOOLEAN DEFAULT 'FALSE'," +
-                          KEY_FILE_TO_DOWNLOAD +" BOOLEAN DEFULT 'FALSE', " +
-                          KEY_FILE_UPDATED_AT +" STRING);");
+            if (prevVersion != 1) {
+                db.execSQL("DROP TABLE IF EXISTS " + ENTRY_TABLE);
             }
         }
 
