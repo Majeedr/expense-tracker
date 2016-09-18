@@ -24,6 +24,7 @@ import com.vinsol.expensetracker.R;
 import com.vinsol.expensetracker.models.Entry;
 import com.vinsol.expensetracker.sync.SyncHelper;
 import com.vinsol.expensetracker.utils.Strings;
+import com.vinsol.expensetracker.utils.Log;
 
 public class FavoriteHelper implements OnClickListener {
 
@@ -42,18 +43,8 @@ public class FavoriteHelper implements OnClickListener {
         this.mShowList = mShowList;
         this.fileHelper = fileHelper;
         setUIandClickListeners();
-        if (this.mShowList.favorite != null) {
-            if (!this.mShowList.favorite.equals("")) {
-                showAddFavorite.setChecked(true);
-                showAddFavoriteTextView.setText("Remove from Favorite");
-            } else {
-                showAddFavoriteTextView.setText("Add to Favorite");
-                showAddFavorite.setChecked(false);
-            }
-        } else {
-            showAddFavoriteTextView.setText("Add to Favorite");
-            showAddFavorite.setChecked(false);
-        }
+
+        setFavoriteUI(mShowList.favorite);
     }
 
     public FavoriteHelper(Activity activity, DatabaseAdapter mDatabaseAdapter,
@@ -68,8 +59,9 @@ public class FavoriteHelper implements OnClickListener {
         mShowList.type = type;
         mShowList.location = LocationHelper.currentAddress;
         setUIandClickListeners();
-        showAddFavoriteTextView.setText("Add to Favorite");
-        showAddFavorite.setChecked(false);
+
+        setFavoriteUI(mShowList.favorite);
+
         MyTextWatcher myTextWatcher = new MyTextWatcher(amount, description,
                 type, isChanged);
         amount.addTextChangedListener(myTextWatcher);
@@ -117,6 +109,18 @@ public class FavoriteHelper implements OnClickListener {
 
     }
 
+    private void setFavoriteUI(boolean favoriteStateTarget) {
+        if (favoriteStateTarget) {
+            Log.d("setFavoriteUI to true");
+            showAddFavorite.setChecked(true);
+            showAddFavoriteTextView.setText("Remove from Favorite");
+        } else {
+            Log.d("setFavoriteUI to false");
+            showAddFavoriteTextView.setText("Add to Favorite");
+            showAddFavorite.setChecked(false);
+        }
+    }
+
     private void favLayoutHandle(EditText amount, EditText description,
             String type, Boolean isChanged) {
         boolean checkStatus;
@@ -155,6 +159,8 @@ public class FavoriteHelper implements OnClickListener {
         switch (v.getId()) {
         case R.id.show_add_favorite:
         case R.id.show_add_favorite_textView:
+            Log.d("Favorite change from " + showAddFavorite.isChecked());
+
             Boolean toCheck;
             if (v.getId() == R.id.show_add_favorite) {
                 toCheck = showAddFavorite.isChecked();
@@ -196,8 +202,9 @@ public class FavoriteHelper implements OnClickListener {
         mDatabaseAdapter.editFavoriteHashEntryTable(hash);
         mDatabaseAdapter.markAsNotFavorite(mShowList);
         mDatabaseAdapter.close();
-        showAddFavorite.setChecked(false);
-        showAddFavoriteTextView.setText("Add to Favorite");
+
+        setFavoriteUI(false);
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("Favorite Status ", false + "");
         map.put("Entry Type ", getTypeForFlurry());
@@ -283,8 +290,9 @@ public class FavoriteHelper implements OnClickListener {
             mDatabaseAdapter.open();
             mDatabaseAdapter.editExpenseEntryById(mShowList);
             mDatabaseAdapter.close();
-            showAddFavorite.setChecked(true);
-            showAddFavoriteTextView.setText("Remove from Favorite");
+
+            setFavoriteUI(true);
+
             Map<String, String> map = new HashMap<String, String>();
             map.put("Favorite Status ", true + "");
             map.put("Entry Type ", getTypeForFlurry());
@@ -344,8 +352,9 @@ public class FavoriteHelper implements OnClickListener {
         mDatabaseAdapter.editFavoriteHashEntryTable(hash);
         mDatabaseAdapter.markAsNotFavorite(mShowList);
         mDatabaseAdapter.close();
-        showAddFavorite.setChecked(false);
-        showAddFavoriteTextView.setText("Add to Favorite");
+
+        setFavoriteUI(false);
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("Favorite Status ", false + "");
         map.put("Entry Type ", getTypeForFlurry());
