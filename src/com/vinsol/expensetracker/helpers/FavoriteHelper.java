@@ -222,7 +222,7 @@ public class FavoriteHelper implements OnClickListener {
         if (toCheck) {
             if (mShowList.type.equals(activity.getString(R.string.text))) {
                 mDatabaseAdapter.open();
-                favID = mDatabaseAdapter.insertToFavoriteTable(mShowList);
+                favID = mDatabaseAdapter.markAsFavorite(mShowList);
                 mDatabaseAdapter.close();
             } else if (mShowList.type.equals(activity
                     .getString(R.string.camera))) {
@@ -231,7 +231,7 @@ public class FavoriteHelper implements OnClickListener {
                     try {
                         mDatabaseAdapter.open();
                         favID = mDatabaseAdapter
-                                .insertToFavoriteTable(mShowList);
+                                .markAsFavorite(mShowList);
                         mDatabaseAdapter.close();
                         fileHelper.copyAllToFavorite(mShowList.id,
                                 favID.toString());
@@ -264,7 +264,7 @@ public class FavoriteHelper implements OnClickListener {
                     try {
                         mDatabaseAdapter.open();
                         favID = mDatabaseAdapter
-                                .insertToFavoriteTable(mShowList);
+                                .markAsFavorite(mShowList);
                         mDatabaseAdapter.close();
                         fileHelper.copyAllToFavorite(mShowList.id,
                                 favID.toString());
