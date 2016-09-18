@@ -89,13 +89,17 @@ public class DatabaseAdapter {
         db.execSQL("drop table " + ENTRY_TABLE);
     }
 
-    protected void dropFavoriteTable() {
-        db.execSQL("drop table " + FAVORITE_TABLE);
+    /* Query string methods */
+
+    private String getIsFavoriteQueryString() {
+        return KEY_FAVORITE;
     }
 
     public long insertToFavoriteTable(Entry favorite) {
         ContentValues contentValues = getInsertContentValues(favorite);
-        long id = db.insert(FAVORITE_TABLE, null, contentValues);
+        contentValues.put(KEY_FAVORITE, true);
+
+        long id = db.insert(ENTRY_TABLE, null, contentValues);
         return id;
     }
 
@@ -103,8 +107,7 @@ public class DatabaseAdapter {
         ContentValues contentValues = getInsertContentValues(entry);
         if(entry.timeInMillis != null)
             contentValues.put(KEY_DATE_TIME, entry.timeInMillis);
-        if(Strings.notEmpty(entry.favorite))
-            contentValues.put(KEY_FAVORITE, entry.favorite);
+        contentValues.put(KEY_FAVORITE, entry.favorite);
         long id = db.insert(ENTRY_TABLE, null, contentValues);
         return id;
     }
@@ -144,7 +147,7 @@ public class DatabaseAdapter {
     }
 
     public boolean deleteFavoriteEntryByHash(String hash) {
-        String where = KEY_MY_HASH + "=\"" + hash+"\"";
+        String where = KEY_MY_HASH + "=\"" + hash+"\" AND " + getIsFavoriteQueryString();
         return deleteFavoriteEntry(where);
     }
 
@@ -154,31 +157,37 @@ public class DatabaseAdapter {
     }
 
     private boolean deleteFavoriteEntry(String where) {
+        where = "(" + where + ") AND " + getIsFavoriteQueryString();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_DELETE_BIT, true);
+        contentValues.put(KEY_SYNC_BIT, context.getString(R.string.syncbit_not_synced));
+
         try {
-            db.update(FAVORITE_TABLE, contentValues, where, null);
+            db.update(ENTRY_TABLE, contentValues, where, null);
         } catch (SQLiteException e) {
             return false;
         }
+
         return true;
     }
 
     public boolean updateFileUploadedEntryTable(String id) {
-        return updateFileUploaded(id, ENTRY_TABLE);
+        return updateFileUploaded(id);
     }
 
     public boolean updateFileUploadedFavoriteTable(String favID) {
-        return updateFileUploaded(favID, FAVORITE_TABLE);
+        return updateFileUploaded(favID);
     }
 
-    private boolean updateFileUploaded(String id, String TABLE) {
+    private boolean updateFileUploaded(String id) {
         String where = KEY_ID + "=" + id;
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_FILE_UPLOADED, false);
         contentValues.put(KEY_SYNC_BIT, context.getString(R.string.syncbit_not_synced));
+
         try {
-            db.update(TABLE, contentValues, where, null);
+            db.update(ENTRY_TABLE, contentValues, where, null);
         } catch (SQLiteException e) {
             return false;
         }
@@ -215,9 +224,10 @@ public class DatabaseAdapter {
     }
 
     public String getFavIdByHash(String hash) {
-        String where = KEY_MY_HASH + "=\"" + hash+"\"";
+        String where = KEY_MY_HASH + "=\"" + hash+"\" AND " + getIsFavoriteQueryString();
+
         try {
-            Cursor cursor = db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+            Cursor cursor = db.query(ENTRY_TABLE, null, where, null, null, null, null);
             if(cursor.moveToFirst()) {
                 String id = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_ID));
                 cursor.close();
@@ -230,9 +240,9 @@ public class DatabaseAdapter {
     }
 
     public String getFavHashById(String id) {
-        String where = KEY_ID + "=" + id;
+        String where = KEY_ID + "=" + id + " AND " + getIsFavoriteQueryString();
         try {
-            Cursor cursor = db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+            Cursor cursor = db.query(ENTRY_TABLE, null, where, null, null, null, null);
             if(cursor.moveToFirst()) {
                 String hash = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_MY_HASH));
                 cursor.close();
@@ -271,9 +281,9 @@ public class DatabaseAdapter {
     }
 
     public boolean permanentDeleteFavoriteEntryByHash(String hash) {
-        String where = KEY_MY_HASH + "=\"" + hash+"\"";
+        String where = KEY_MY_HASH + "=\"" + hash+"\" AND " + getIsFavoriteQueryString();
         try {
-            db.delete(FAVORITE_TABLE, where, null);
+            db.delete(ENTRY_TABLE, where, null);
         } catch (SQLiteException e) {
             return false;
         }
@@ -294,9 +304,9 @@ public class DatabaseAdapter {
     }
 
     public boolean permanentDeleteFavoriteEntryByMyHash(String hash) {
-        String where = KEY_MY_HASH + "=\"" + hash+"\"";
+        String where = KEY_MY_HASH + "=\"" + hash+"\" AND " + getIsFavoriteQueryString();
         try {
-            db.delete(FAVORITE_TABLE, where, null);
+            db.delete(ENTRY_TABLE, where, null);
         } catch (SQLiteException e) {
             return false;
         }
@@ -317,9 +327,9 @@ public class DatabaseAdapter {
     }
 
     public boolean permanentDeleteFavoriteEntryByID(String favID) {
-        String where = KEY_ID + "=" + favID;
+        String where = KEY_ID + "=" + favID + " AND " + getIsFavoriteQueryString();
         try {
-            db.delete(FAVORITE_TABLE, where, null);
+            db.delete(ENTRY_TABLE, where, null);
         } catch (SQLiteException e) {
             return false;
         }
@@ -349,8 +359,8 @@ public class DatabaseAdapter {
     }
 
     public boolean findFavoriteByMyHash(String hash) {
-        String where = KEY_MY_HASH + "=\"" + hash+"\"";
-        Cursor cursor = db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = KEY_MY_HASH + "=\"" + hash+"\" AND " + getIsFavoriteQueryString();
+        Cursor cursor = db.query(ENTRY_TABLE, null, where, null, null, null, null);
         boolean isPresent = false;
         if(cursor.moveToFirst()) {
             isPresent = true;
@@ -360,8 +370,8 @@ public class DatabaseAdapter {
     }
 
     public Cursor getFavoriteByHash(String hash) {
-        String where = KEY_MY_HASH + "=\"" + hash+"\"";
-        return db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = KEY_MY_HASH + "=\"" + hash+"\" AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where, null, null, null, null);
     }
 
     public Cursor getEntryByHash(String hash) {
@@ -382,9 +392,9 @@ public class DatabaseAdapter {
 
     public boolean editFavoriteEntryById(Favorite favorite) {
         ContentValues contentValues = getEditContentValues(favorite);
-        String where = KEY_ID + "=" + favorite.id;
+        String where = KEY_ID + "=" + favorite.id + " AND " + getIsFavoriteQueryString();
         try {
-            db.update(FAVORITE_TABLE, contentValues, where, null);
+            db.update(ENTRY_TABLE, contentValues, where, null);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -394,9 +404,10 @@ public class DatabaseAdapter {
 
     public boolean editFavoriteEntryByHash(Favorite favorite) {
         ContentValues contentValues = getEditContentValues(favorite);
-        String where = KEY_MY_HASH + "=\"" + favorite.myHash+"\"";
+        String where = KEY_MY_HASH + "=\"" + favorite.myHash+"\" AND "
+            + getIsFavoriteQueryString();
         try {
-            db.update(FAVORITE_TABLE, contentValues, where, null);
+            db.update(ENTRY_TABLE, contentValues, where, null);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -410,8 +421,7 @@ public class DatabaseAdapter {
         if(entry.timeInMillis != null)
             contentValues.put(KEY_DATE_TIME, entry.timeInMillis);
 
-        if (Strings.notEmpty(entry.favorite))
-            contentValues.put(KEY_FAVORITE, entry.favorite);
+        contentValues.put(KEY_FAVORITE, entry.favorite);
         String where = KEY_MY_HASH + "=\"" + entry.myHash+"\"";
         try {
             db.update(ENTRY_TABLE, contentValues, where, null);
@@ -428,8 +438,7 @@ public class DatabaseAdapter {
         if(entry.timeInMillis != null)
             contentValues.put(KEY_DATE_TIME, entry.timeInMillis);
 
-        if (Strings.notEmpty(entry.favorite))
-            contentValues.put(KEY_FAVORITE, entry.favorite);
+        contentValues.put(KEY_FAVORITE, entry.favorite);
         try {
             db.update(ENTRY_TABLE, contentValues, where, null);
             return true;
@@ -471,8 +480,8 @@ public class DatabaseAdapter {
     }
 
     public Cursor getFavoriteDataFileNotUploaded() {
-        String where = KEY_FILE_UPLOADED+" IS NULL OR "+KEY_FILE_UPLOADED+"= \"\" OR NOT "+KEY_FILE_UPLOADED;
-        return db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = KEY_FILE_UPLOADED+" IS NULL OR "+KEY_FILE_UPLOADED+"= \"\" OR NOT "+KEY_FILE_UPLOADED + " AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where, null, null, null, null);
     }
 
     public Cursor getEntryDataNotSyncedAndCreated() {
@@ -481,8 +490,8 @@ public class DatabaseAdapter {
     }
 
     public Cursor getFavoriteDataNotSyncedAndCreated() {
-        String where = KEY_UPDATED_AT+" IS NULL OR "+KEY_UPDATED_AT+"= \"\"";
-        return db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = KEY_UPDATED_AT+" IS NULL OR "+KEY_UPDATED_AT+"= \"\"" + " AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where, null, null, null, null);
     }
 
     public Cursor getEntryDataFileToDownload() {
@@ -491,8 +500,8 @@ public class DatabaseAdapter {
     }
 
     public Cursor getFavoriteDataFileToDownload() {
-        String where = KEY_FILE_TO_DOWNLOAD;
-        return db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = KEY_FILE_TO_DOWNLOAD + " AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where, null, null, null, null);
     }
 
     public Cursor getEntryDataNotSyncedAndUpdated() {
@@ -501,8 +510,8 @@ public class DatabaseAdapter {
     }
 
     public Cursor getFavoriteDataNotSyncedAndUpdated() {
-        String where = KEY_UPDATED_AT+" IS NOT NULL AND "+KEY_UPDATED_AT+" != \"\" AND "+KEY_SYNC_BIT+" = "+context.getString(R.string.syncbit_not_synced)+" AND "+getNotDeletedString();
-        return db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = KEY_UPDATED_AT+" IS NOT NULL AND "+KEY_UPDATED_AT+" != \"\" AND "+KEY_SYNC_BIT+" = "+context.getString(R.string.syncbit_not_synced)+" AND "+getNotDeletedString() + " AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where, null, null, null, null);
     }
 
     public Cursor getEntryDataNotSyncedAndDeleted() {
@@ -511,8 +520,8 @@ public class DatabaseAdapter {
     }
 
     public Cursor getFavoriteDataNotSyncedAndDeleted() {
-        String where = getDeletedString();
-        return db.query(FAVORITE_TABLE, null, where, null, null, null, null);
+        String where = getDeletedString() + " AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where, null, null, null, null);
     }
 
     public Cursor getEntryTableDateDatabaseDescending() {
@@ -540,7 +549,7 @@ public class DatabaseAdapter {
     }
 
     public String getFavoriteHashEntryTable(String id) {
-        String where = KEY_ID+" = "+id + " AND "+getNotDeletedString();
+        String where = KEY_ID+" = "+id + " AND "+getNotDeletedString() + " AND " + getIsFavoriteQueryString();
         Cursor cr = db.query(ENTRY_TABLE,  new String[] {
                 KEY_FAVORITE}, where, null, null, null, null);
         cr.moveToFirst();
@@ -552,14 +561,15 @@ public class DatabaseAdapter {
 
     public void editFavoriteHashEntryTable(String hash) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_FAVORITE, "");
+        contentValues.put(KEY_FAVORITE, false);
         contentValues.put(KEY_SYNC_BIT, context.getString(R.string.syncbit_not_synced));
-        String where = KEY_FAVORITE+" = \""+hash+"\"";
+        String where = KEY_FAVORITE+" = \""+hash+"\" AND " + getIsFavoriteQueryString();
         db.update(ENTRY_TABLE, contentValues, where, null);
     }
 
     public Cursor getFavoriteTableComplete() {
-        return db.query(FAVORITE_TABLE, null, getNotDeletedString(), null, null, null, null);
+        String where = getNotDeletedString() + " AND " + getIsFavoriteQueryString();
+        return db.query(ENTRY_TABLE, null, where , null, null, null, null);
     }
 
     private String getNotDeletedString() {
