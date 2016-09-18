@@ -18,6 +18,7 @@ import com.vinsol.expensetracker.models.Entry;
 import com.vinsol.expensetracker.models.Favorite;
 import com.vinsol.expensetracker.utils.Strings;
 import com.vinsol.expensetracker.utils.Utils;
+import com.vinsol.expensetracker.utils.Log;
 
 public class DatabaseAdapter {
 
@@ -109,6 +110,30 @@ public class DatabaseAdapter {
             contentValues.put(KEY_DATE_TIME, entry.timeInMillis);
         contentValues.put(KEY_FAVORITE, entry.favorite);
         long id = db.insert(ENTRY_TABLE, null, contentValues);
+        return id;
+    }
+
+    public long markAsFavorite(Entry entry) {
+        Log.d("Mark \"" + entry.myHash + "\" to favorite");
+
+        ContentValues contentValues = getInsertContentValues(entry);
+        contentValues.put(KEY_FAVORITE, true);
+
+        String where = KEY_MY_HASH + " = \"" + entry.myHash + "\"";
+
+        long id = db.update(ENTRY_TABLE, contentValues, where, null);
+        return id;
+    }
+
+    public long markAsNotFavorite(Entry entry) {
+        Log.d("Mark \"" + entry.myHash + "\" to NOT favorite");
+
+        ContentValues contentValues = getInsertContentValues(entry);
+        contentValues.put(KEY_FAVORITE, false);
+
+        String where = KEY_MY_HASH + " = \"" + entry.myHash + "\"";
+
+        long id = db.update(ENTRY_TABLE, contentValues, where, null);
         return id;
     }
 
@@ -252,6 +277,21 @@ public class DatabaseAdapter {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public boolean getIsFavoriteById(String id) {
+        int count = 0;
+        String where = KEY_ID + "=" + id + " AND " + getIsFavoriteQueryString();
+
+        try {
+            Cursor cursor = db.query(ENTRY_TABLE, null, where, null, null, null, null);
+            count = cursor.getCount();
+            cursor.close();
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
+
+        return count != 0;
     }
 
     public String getEntryHashById(String id) {
