@@ -238,7 +238,7 @@ public class FavoriteEntry extends BaseActivity implements OnItemClickListener {
         }
         Bundle intentExtras = new Bundle();
         intentExtras.putParcelable(Constants.KEY_ENTRY_LIST_EXTRA, favoriteEntry);
-        intentExtras.putBoolean(Constants.KEY_IS_COMING_FROM_FAVORITE, true);
+        intentExtras.putBoolean(Constants.KEY_IS_COMING_FROM_FAVORITE, favoriteEntry.favorite);
         intentExtras.putInt(Constants.KEY_POSITION, position);
         intent.putExtras(intentExtras);
         startActivityForResult(intent, ACTIVITY_RESULT);
@@ -543,9 +543,9 @@ public class FavoriteEntry extends BaseActivity implements OnItemClickListener {
         if(id != null) {toInsert.id = id+"";}
 
         if(amount != null && !amount.contains("?") && !amount.equals("")) {toInsert.amount = amount;}
-        
-        toInsert.favorite = adapterList.myHash;
-        
+
+        toInsert.favorite = adapterList.favorite;
+
         if(type.equals(getString(R.string.camera))) {
             if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED)) {
                 try {

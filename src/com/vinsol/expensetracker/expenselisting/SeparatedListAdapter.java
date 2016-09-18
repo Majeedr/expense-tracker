@@ -252,22 +252,16 @@ class SeparatedListAdapter extends BaseAdapter {
                     } else {
                         holderBody.rowImageview.setImageResource(R.drawable.no_voice_file_small);
                     }
-                } 
-                if (mlist.favorite != null) {
-                    if(!mlist.favorite.equals("")) {
-                        try{
-                            if(isCurrentWeek(mDataDateList.get(sectionnum).dateTime)) {
-                                holderBody.rowFavoriteIcon.setVisibility(View.VISIBLE);
-                            } else {
-                                holderBody.rowFavoriteIcon.setVisibility(View.INVISIBLE);
-                            }
-                        }catch(Exception e) { 
-                            
-                        }
-                    }else {
+                }
+
+                Log.d("Item \"" + mlist.description + "\" has favorite: " + mlist.favorite.toString());
+                if (mlist.favorite) {
+                    if (isCurrentWeek(mDataDateList.get(sectionnum).dateTime)) {
+                        holderBody.rowFavoriteIcon.setVisibility(View.VISIBLE);
+                    } else {
                         holderBody.rowFavoriteIcon.setVisibility(View.INVISIBLE);
                     }
-                }else {
+                } else {
                     holderBody.rowFavoriteIcon.setVisibility(View.INVISIBLE);
                 }
                 

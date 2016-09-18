@@ -260,7 +260,7 @@ public class ConvertCursorToListString {
                 Entry mEntry = new Entry();
                 mEntry.id = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_ID));
                 mEntry.amount = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_AMOUNT));
-                mEntry.favorite = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_FAVORITE));
+                mEntry.favorite = (cursor.getInt(cursor.getColumnIndex(DatabaseAdapter.KEY_FAVORITE)) != 0);
                 mEntry.location = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_LOCATION));
                 mEntry.description = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_TAG));
                 mEntry.type = cursor.getString(cursor.getColumnIndex(DatabaseAdapter.KEY_TYPE));

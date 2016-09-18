@@ -147,10 +147,10 @@ abstract class ListingAbstract extends BaseActivity implements OnItemClickListen
             templist.amount = "?";
         }
 
-        if (mSubList.get(j).favorite != null && !mSubList.get(j).favorite.equals("")) {
+        if (mSubList.get(j).favorite) {
             templist.favorite = mSubList.get(j).favorite;
         } else {
-            templist.favorite = "";
+            templist.favorite = false;
         }
 
         if (mSubList.get(j).type != null && !mSubList.get(j).type.equals("")) {

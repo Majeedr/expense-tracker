@@ -455,7 +455,8 @@ public class SyncHelper extends AsyncTask<Void, Void, Void>{
             }
             setSyncBit(entry);
             entry.id = tempEntry.id;
-            entry.favorite = adapter.getFavIdByHash(entry.favorite);
+            // FIXME: Ensure assumption about \code{tempEntry} true
+            entry.favorite = adapter.getIsFavoriteById(tempEntry.id);
             adapter.editExpenseEntryByHash(entry);
         }
         adapter.close();

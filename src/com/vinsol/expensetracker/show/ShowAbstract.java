@@ -47,7 +47,7 @@ abstract class ShowAbstract extends BaseActivity implements OnClickListener {
     protected DatabaseAdapter mDatabaseAdapter;    
     protected Button showDelete;
     protected Button showEdit;
-    private String tempfavID;
+    private boolean tempfavID;
     protected FileHelper fileHelper;
     protected FavoriteHelper mFavoriteHelper;
     
@@ -240,16 +240,7 @@ abstract class ShowAbstract extends BaseActivity implements OnClickListener {
     }
 
     private boolean istempfavIdequalsfavId() {
-        if(tempfavID == null && mShowList.favorite == null) {
-            return true;
-        }
-        if(tempfavID == null || mShowList.favorite == null) {
-            return false;
-        }
-        if(tempfavID.equals(mShowList.favorite)) {
-            return true;
-        }
-        return false;
+        return tempfavID == mShowList.favorite;
     }
 
     @Override

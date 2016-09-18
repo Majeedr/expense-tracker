@@ -27,7 +27,7 @@ public class Entry implements Parcelable {
     public String fileUpdatedAt;
 
     public Long timeInMillis;
-    public String favorite = null;
+    public Boolean favorite = false;
 
     public static final Parcelable.Creator<Entry> CREATOR = new Parcelable.Creator<Entry>() {
         public Entry createFromParcel(Parcel in) {
@@ -48,7 +48,7 @@ public class Entry implements Parcelable {
         transactionType = in.readString();
         type = in.readString();
         location = in.readString();
-        favorite = in.readString();
+        favorite = in.readByte() == 1;
         timeInMillis = in.readLong();
         myHash = in.readString();
         idFromServer = in.readString();
@@ -68,7 +68,7 @@ public class Entry implements Parcelable {
         dest.writeString(transactionType);
         dest.writeString(type);
         dest.writeString(location);
-        dest.writeString(favorite);
+        dest.writeByte((byte) (favorite ? 1 : 0));
         dest.writeLong(timeInMillis);
         dest.writeString(myHash);
         dest.writeString(idFromServer);

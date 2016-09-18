@@ -190,11 +190,13 @@ public class FavoriteHelper implements OnClickListener {
     }
 
     private void setDatabaseAndLayoutValues(String hash) {
+        mShowList.favorite = false;
+
         mDatabaseAdapter.open();
         mDatabaseAdapter.editFavoriteHashEntryTable(hash);
+        mDatabaseAdapter.markAsNotFavorite(mShowList);
         mDatabaseAdapter.close();
         showAddFavorite.setChecked(false);
-        mShowList.favorite = null;
         showAddFavoriteTextView.setText("Add to Favorite");
         Map<String, String> map = new HashMap<String, String>();
         map.put("Favorite Status ", false + "");
@@ -276,8 +278,9 @@ public class FavoriteHelper implements OnClickListener {
                 }
             }
             mShowList.syncBit = activity.getString(R.string.syncbit_not_synced);
+            mShowList.favorite = true; // mDatabaseAdapter.getIsFavoriteById(favID + "");
+
             mDatabaseAdapter.open();
-            mShowList.favorite = mDatabaseAdapter.getFavHashById(favID + "");
             mDatabaseAdapter.editExpenseEntryById(mShowList);
             mDatabaseAdapter.close();
             showAddFavorite.setChecked(true);
@@ -332,14 +335,16 @@ public class FavoriteHelper implements OnClickListener {
     }
 
     private void doTaskAfter(String hash) {
+        mShowList.favorite = false;
+
         mDatabaseAdapter.open();
         mDatabaseAdapter.deleteFavoriteEntryByHash(hash);
         mDatabaseAdapter.close();
         mDatabaseAdapter.open();
         mDatabaseAdapter.editFavoriteHashEntryTable(hash);
+        mDatabaseAdapter.markAsNotFavorite(mShowList);
         mDatabaseAdapter.close();
         showAddFavorite.setChecked(false);
-        mShowList.favorite = null;
         showAddFavoriteTextView.setText("Add to Favorite");
         Map<String, String> map = new HashMap<String, String>();
         map.put("Favorite Status ", false + "");

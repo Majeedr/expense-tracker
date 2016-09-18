@@ -304,13 +304,13 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
 
         if( isChanged ) {
             Entry listForFav = new Entry();
-            listForFav.favorite = "";
+            listForFav.favorite = false;
             listForFav.id = mEditList.id;
             listForFav.syncBit = getString(R.string.syncbit_not_synced);
             mDatabaseAdapter.open();
             mDatabaseAdapter.editExpenseEntryById(listForFav);
             mDatabaseAdapter.close();
-            displayList.favorite = "";
+            displayList.favorite = false;
         } else {
             displayList.favorite = mEditList.favorite;
         }
@@ -801,6 +801,7 @@ abstract class EditAbstract extends BaseActivity implements OnClickListener {
             toInsert.location = LocationHelper.currentAddress;
         }
 
+        toInsert.favorite = false;
         toInsert.type = getString(typeOfEntry);
         mDatabaseAdapter.open();
         entry.id = mDatabaseAdapter.insertToEntryTable(toInsert).toString();
